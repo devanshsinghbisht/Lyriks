@@ -6,6 +6,7 @@ const TopArtists = () => {
     const { data , isFetching , error } = useGetTopChartsQuery();
     if(isFetching ) return <Loader title="Loading Top Charts"/> 
     if(error) return <Error />
+    console.log("THis is artist data : " , data);
     return (    
         <div className="flex flex-col ">
             <h2 className="font-bold text-3xl  text-white text-left mt-4 mb-10">Tor Artists</h2>

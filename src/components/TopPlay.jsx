@@ -21,9 +21,9 @@ const TopChartCard = ({song , i , isPlaying , activeSong , handlePauseClick , ha
         <Link to={`/songs/${song?.key}`}>
           <p className="text-xl font-bold text-white">{song?.title}</p>
         </Link>
-        <Link to={`/artists/${song?.artists[0].adamid}`}>
+        {/* <Link to={`/artists/${song?.artists[0]?.adamid}`}>
           <p className="text-ase font-bold text-gray-300 mt-1">{song?.subtitle}</p>
-        </Link>
+        </Link> */}
       </div>
     </div>
     <PlayPause 
@@ -46,7 +46,9 @@ const TopPlay = () => {
     divRef.current.scrollIntoView({behavior : 'smooth'})
   });
 
-  const topPlays = data?.slice(0,5);
+  const topPlays = data?.slice(0, 5);
+
+  // console.log("This is top plays : " , topPlays);
 
   const handlePauseClick = () => {
     dispatch(PlayPause(false)); 
@@ -67,17 +69,17 @@ const TopPlay = () => {
           </Link>
         </div>  
         <div className="mt-4 flex flex-col gap-1">
-          {topPlays?.map((song , i) => (
-            <TopChartCard
-              key = {song.key}
-              song = {song} 
-              i = {i}
-              isPlaying = {isPlaying}
-              activeSong = {activeSong}
-              handlePauseClick = {handlePauseClick}
-              handlePlayClick = {() => handlePlayClick(song , i)}
-            />
-          ))}
+        {topPlays && topPlays.length > 0 && topPlays.map((song , i) => (
+          <TopChartCard
+            key = {song.key}
+            song = {song} 
+            i = {i}
+            isPlaying = {isPlaying}
+            activeSong = {activeSong}
+            handlePauseClick = {handlePauseClick}
+            handlePlayClick = {() => handlePlayClick(song , i)}
+          />
+        ))}
         </div>
       </div> 
       <div className="w-full flex  flex-col mt-8">
@@ -96,15 +98,15 @@ const TopPlay = () => {
           modules={[FreeMode]}
           className="mt-4"
         >
-          {topPlays?.map((song) => (
+          {topPlays !== undefined && topPlays.length > 0 && topPlays?.map((song) => (
             <SwiperSlide 
               key={song?.key}
               style ={{width:'25%' , height:'auto'}}
               className="shadow-lg rounded-full animate-slideright"
             >
-            <Link to ={`/artists/${song?.artists[0].adamid}`}>
+            {/* <Link to ={`/artists/${song?.artists[0]?.adamid}`}>
               <img src={song?.images.background} alt="name"className ="rounded-full w-full object-cover" />
-            </Link>
+            </Link> */}
             </SwiperSlide>
           ))}
         </Swiper>
